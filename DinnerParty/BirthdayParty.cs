@@ -4,14 +4,8 @@ using System.Text;
 
 namespace DinnerParty
 {
-    class BirthdayParty
+    class BirthdayParty : Party
     {
-        public const int COST_OF_FOOD_PER_PERSON = 25;
-
-        public int NumberOfPeople { get; set; }
-
-        public bool FancyDecorations { get; set; }
-
         public string CakeWriting { get; set; }
 
         public BirthdayParty(int numberOfPeople, bool fancyDecorations, string cakeWriting)
@@ -46,19 +40,11 @@ namespace DinnerParty
             get { return CakeWriting.Length > MaxWritingLength(); }
         }
 
-        private decimal CalculateCostOfDecorations()
-        {
-            return FancyDecorations
-                ? (NumberOfPeople * 15.00M) + 50M
-                : (NumberOfPeople * 7.50M) + 30M;
-        }
-
-        public decimal Cost
+        override public decimal Cost
         {
             get
             {
-                decimal totalCost = CalculateCostOfDecorations();
-                totalCost += COST_OF_FOOD_PER_PERSON * NumberOfPeople;
+                decimal totalCost = base.Cost;
                 decimal cakeCost = CakeSize() == 8
                     ? 40M + ActualLength * .25M
                     : 75M + ActualLength * .25M;
